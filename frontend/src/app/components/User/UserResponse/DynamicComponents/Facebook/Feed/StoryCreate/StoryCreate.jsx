@@ -40,7 +40,7 @@ const StoryCreate = () => {
         </form>
       </div>
 
-      <div className="postOptions">
+      {/* <div className="postOptions">
         {<div className="postOption" onClick={openModal}>
           <PhotoLibraryIcon style={{ color: '#31A24C' }}/>
           <p style={{color: 'grey', paddingTop: '4px'}}><b>{translate('photo', 'video')}</b></p>
@@ -52,8 +52,8 @@ const StoryCreate = () => {
         <div className="postOption onlyLargeScreen">
           <InsertEmoticonIcon style={{ color: '#F5C33B' }} />
           <p><b>{translate('feeling', 'activity')}</b></p>
-        </div>
-    </div>
+        </div> 
+    </div> */}
     </div>
     {modalOpen && <NewModal setModalOpen={setModalOpen}/>}
     </>
