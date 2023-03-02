@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import useStyles from '../../../../style';
 import Feed from './Feed/Feed';
@@ -22,12 +22,8 @@ const Facebook = ({ data }) => {
   const classes = useStyles();
 
   //add timer counter
-  // const [timer, setTimer] = useState(60);    
-  // const timeOutCallback = useCallback(() => setTimer(currTimer => currTimer - 1), []);
-  // useEffect(() => {
-  //   timer > 0 && setTimeout(timeOutCallback, 1000);
-  // }, [timer, timeOutCallback]);
-  // console.log(timer);
+  const [isEmbedded, setIsEmbedded] = useState(false);
+  const [timeRemaining, setTimeRemaining] = useState(10 * 60);
 
   const fetch = async () => {
     dispatch(clearFacebookState());
@@ -50,6 +46,35 @@ const Facebook = ({ data }) => {
     };
   }, []);
 
+  useEffect(() => {
+    if (window.self !== window.top) {
+      //const message = document.createElement('p');
+      //message.innerText = 'This app is running inside an iframe.';
+      //document.body.appendChild(message);
+    } else { 
+      //const message = document.createElement('div');
+      //message.className="storyCreateTop";
+      //message.innerText = 'Please spend the next 10 minutes browsing and interacting with the Facebook posts above as if you were on Facebook (e.g., liking, sharing, commenting, etc.) Once the 10 minutes is up, return to the survey page and complete the rest of the survey.';
+      //document.body.appendChild(message);
+      setIsEmbedded(true);
+    }
+  }, []);
+
+
+  useEffect(() => {
+    let intervalId;
+    if (isEmbedded && timeRemaining > 0) {
+      intervalId = setInterval(() => {
+        setTimeRemaining(prevTime => prevTime - 1);
+      }, 1000);
+    }
+    return () => clearInterval(intervalId);
+  }, [isEmbedded, timeRemaining]);
+
+  const minutesRemaining = Math.floor(timeRemaining / 60);
+  const secondsRemaining = timeRemaining % 60;
+
+
   const handleSubmit = (e) => {
     e.preventDefault();
     dispatch(updateFlowActiveState());
@@ -60,9 +85,18 @@ const Facebook = ({ data }) => {
       <Container component="main" maxWidth="sm" className="facebookCard">
         <StoryCreate />
 
+        {<div>
+          {isEmbedded && timeRemaining > 0 && (
+            <p style={{ backgroundColor: 'yellow' }}>You have <b>{minutesRemaining} minute{minutesRemaining !== 1 && 's'}</b> and <b>{secondsRemaining} second{secondsRemaining !== 1 && 's'}</b> left to browse and interact with the Facebook posts below as if you were on Facebook (e.g., liking, sharing, commenting, etc.) Once the 10 minutes is up, return to the survey page and complete the rest of the survey.</p>
+          )}
+          {isEmbedded && timeRemaining <= 0 && (
+            <p style={{ backgroundColor: 'lightgreen' }}>The 10 minutes is up, please return to the survey page and complete the rest of the survey.</p>
+          )}
+        </div>}
+
         <div className="facebookMainBody">
-          {totalPostCount && totalPostCount > 0 ? 
-            <Feed omitInteractionBar={data?.omitInteractionBar || false}/> 
+          {totalPostCount && totalPostCount > 0 ?
+            <Feed omitInteractionBar={data?.omitInteractionBar || false}/>
           : <p>No Posts Exists!</p>}
         </div>
 
