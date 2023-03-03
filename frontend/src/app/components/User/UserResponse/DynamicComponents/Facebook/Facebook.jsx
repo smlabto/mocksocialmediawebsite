@@ -39,6 +39,22 @@ const Facebook = ({ data }) => {
     dispatch(getFacebookPostsCount(getRequest));
   };
 
+  const fetchInfoDetails = async () => {
+    try {
+      //const ret = await getUserInfoDetails(data._id);
+      //const obj = ret.data.infoDetails || null;
+      //setResponseCode(ret.data.responseCode);
+      // dispatch finish response event
+      const utcDateTime = new Date();
+      var utcDateTimeString = utcDateTime.toISOString().replace('Z', '').replace('T', ' ');
+      await dispatch(updateUserMain({ finishedAt: utcDateTimeString }));
+      //await setInfoDetails(obj);
+      setIsLoading(false);
+    } catch (error) {
+      setIsLoading(false);
+    }
+  };
+
   useEffect(() => {
     if (!isLoggedInUser) return <Navigate to="/" />;
     fetch();
@@ -76,11 +92,9 @@ const Facebook = ({ data }) => {
   const secondsRemaining = timeRemaining % 60;
 
   const handleSubmit = (e) => {
-    dispatch(updateFlowActiveState());
-    const utcDateTime = new Date();
-    var utcDateTimeString = utcDateTime.toISOString().replace('Z', '').replace('T', ' ');
-    await dispatch(updateUserMain({ finishedAt: utcDateTimeString }));    
     e.preventDefault();
+    fetchInfoDetails();
+    dispatch(updateFlowActiveState());
   };
 
   return (
