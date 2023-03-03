@@ -92,7 +92,7 @@ const Facebook = ({ data }) => {
   const secondsRemaining = timeRemaining % 60;
 
   const handleSubmit = (e) => {
-    e.preventDefault();
+    //e.preventDefault();
     fetchInfoDetails();
     dispatch(updateFlowActiveState());
   };
