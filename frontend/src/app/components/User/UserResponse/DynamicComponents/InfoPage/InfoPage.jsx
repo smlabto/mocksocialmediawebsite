@@ -64,9 +64,9 @@ const InfoPage = ({ data }) => {
     setIsLoading(true);
     fetchInfoDetails();
     window.scrollTo(0,0);
-    window.onbeforeunload = function() {
-      return WINDOW_GLOBAL.RELOAD_ALERT_MESSAGE;
-    };
+    // window.onbeforeunload = function() {
+    //   return WINDOW_GLOBAL.RELOAD_ALERT_MESSAGE;
+    // };
   }, []);
 
   const handleConsentChange = (e) => {

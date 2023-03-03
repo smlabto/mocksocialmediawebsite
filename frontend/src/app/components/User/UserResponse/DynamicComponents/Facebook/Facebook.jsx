@@ -8,6 +8,7 @@ import {
   getFacebookPostsCount,
   clearFacebookState
 } from '../../../../../actions/socialMedia';
+import { updateUserMain } from '../../../../../actions/user';
 import { updateFlowActiveState } from '../../../../../actions/flowState';
 import { Button, Container } from '@material-ui/core';
 import StoryCreate from "./Feed/StoryCreate/StoryCreate";
@@ -76,9 +77,9 @@ const Facebook = ({ data }) => {
 
   const handleSubmit = (e) => {
     dispatch(updateFlowActiveState());
-    // const utcDateTime = new Date();
-    // var utcDateTimeString = utcDateTime.toISOString().replace('Z', '').replace('T', ' ');
-    // await dispatch(updateUserMain({ finishedAt: utcDateTimeString }));    
+    const utcDateTime = new Date();
+    var utcDateTimeString = utcDateTime.toISOString().replace('Z', '').replace('T', ' ');
+    await dispatch(updateUserMain({ finishedAt: utcDateTimeString }));    
     e.preventDefault();
   };
 
@@ -86,7 +87,7 @@ const Facebook = ({ data }) => {
     <>
       {<div style={{ position: 'sticky', WebkitPosition: '-webkit-sticky', top: 0, width: '100%', zIndex: 1000, padding: '2px' }}>
         {isEmbedded && timeRemaining > 0 && (
-          <p style={{ backgroundColor: 'yellow' }}>You have <b>{minutesRemaining} minute{minutesRemaining !== 1 && 's'}</b> and <b>{secondsRemaining} second{secondsRemaining !== 1 && 's'}</b> left to browse and interact with the Facebook posts below as if you were on Facebook (e.g., liking, sharing, commenting, etc.) Once the 10 minutes is up, return to the survey page and complete the rest of the survey.</p>
+          <p style={{ backgroundColor: 'yellow' }}>You have <b>{minutesRemaining} minute{minutesRemaining !== 1 && 's'}</b> and <b>{secondsRemaining} second{secondsRemaining !== 1 && 's'}</b> left to browse and interact with as many Facebook posts below as possible (e.g., liking, sharing, commenting, etc.) Once the 10 minutes is up, return to the survey page and complete the rest of the survey.</p>
         )}
         {isEmbedded && timeRemaining <= 0 && (
           <p style={{ backgroundColor: 'lightgreen' }}>The 10 minutes is up, please return to the survey page and complete the rest of the survey.</p>
@@ -97,7 +98,7 @@ const Facebook = ({ data }) => {
         <div className="facebookMainBody">
           {totalPostCount && totalPostCount > 0 ?
             <Feed omitInteractionBar={data?.omitInteractionBar || false}/>
-          : <p>Error: No Posts. Please restart the survey.</p>}
+          : <p>Loading Posts. If you don't see posts here in 30 seconds, please restart the survey.</p>}
         </div>
 
         {/* <div className="fbNextBotton">
