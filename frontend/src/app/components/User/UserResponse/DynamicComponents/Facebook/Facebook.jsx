@@ -23,7 +23,7 @@ const Facebook = ({ data }) => {
 
   //add timer counter
   const [isEmbedded, setIsEmbedded] = useState(false);
-  const [timeRemaining, setTimeRemaining] = useState(10 * 60);
+  const [timeRemaining, setTimeRemaining] = useState(1 * 60);
 
   const fetch = async () => {
     dispatch(clearFacebookState());
@@ -41,25 +41,17 @@ const Facebook = ({ data }) => {
   useEffect(() => {
     if (!isLoggedInUser) return <Navigate to="/" />;
     fetch();
-    window.onbeforeunload = function() {
-      return WINDOW_GLOBAL.RELOAD_ALERT_MESSAGE;
-    };
+    // window.onbeforeunload = function() {
+    //   return WINDOW_GLOBAL.RELOAD_ALERT_MESSAGE;
+    // };
   }, []);
 
   useEffect(() => {
     if (window.self !== window.top) {
-      //const message = document.createElement('p');
-      //message.innerText = 'This app is running inside an iframe.';
-      //document.body.appendChild(message);
     } else { 
-      //const message = document.createElement('div');
-      //message.className="storyCreateTop";
-      //message.innerText = 'Please spend the next 10 minutes browsing and interacting with the Facebook posts above as if you were on Facebook (e.g., liking, sharing, commenting, etc.) Once the 10 minutes is up, return to the survey page and complete the rest of the survey.';
-      //document.body.appendChild(message);
       setIsEmbedded(true);
     }
   }, []);
-
 
   useEffect(() => {
     let intervalId;
@@ -71,18 +63,28 @@ const Facebook = ({ data }) => {
     return () => clearInterval(intervalId);
   }, [isEmbedded, timeRemaining]);
 
+  useEffect(() => {
+    if (isEmbedded && timeRemaining <= 0) {
+      setTimeout(() => {
+        handleSubmit();
+      }, 0);
+    }
+  }, [isEmbedded, timeRemaining]);
+  
   const minutesRemaining = Math.floor(timeRemaining / 60);
   const secondsRemaining = timeRemaining % 60;
 
-
   const handleSubmit = (e) => {
-    e.preventDefault();
     dispatch(updateFlowActiveState());
+    // const utcDateTime = new Date();
+    // var utcDateTimeString = utcDateTime.toISOString().replace('Z', '').replace('T', ' ');
+    // await dispatch(updateUserMain({ finishedAt: utcDateTimeString }));    
+    e.preventDefault();
   };
 
   return (
     <>
-      {<div style={{ position: 'sticky', WebkitPosition: '-webkit-sticky', top: 0, width: '100%', backgroundColor: 'yellow', zIndex: 1000, padding: '4px' }}>
+      {<div style={{ position: 'sticky', WebkitPosition: '-webkit-sticky', top: 0, width: '100%', zIndex: 1000, padding: '2px' }}>
         {isEmbedded && timeRemaining > 0 && (
           <p style={{ backgroundColor: 'yellow' }}>You have <b>{minutesRemaining} minute{minutesRemaining !== 1 && 's'}</b> and <b>{secondsRemaining} second{secondsRemaining !== 1 && 's'}</b> left to browse and interact with the Facebook posts below as if you were on Facebook (e.g., liking, sharing, commenting, etc.) Once the 10 minutes is up, return to the survey page and complete the rest of the survey.</p>
         )}
@@ -95,7 +97,7 @@ const Facebook = ({ data }) => {
         <div className="facebookMainBody">
           {totalPostCount && totalPostCount > 0 ?
             <Feed omitInteractionBar={data?.omitInteractionBar || false}/>
-          : <p>No Posts Exists!</p>}
+          : <p>Error: No Posts. Please restart the survey.</p>}
         </div>
 
         {/* <div className="fbNextBotton">
