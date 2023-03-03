@@ -24,7 +24,7 @@ const Facebook = ({ data }) => {
 
   //add timer counter
   const [isEmbedded, setIsEmbedded] = useState(false);
-  const [timeRemaining, setTimeRemaining] = useState(1 * 60);
+  const [timeRemaining, setTimeRemaining] = useState(10 * 60);
 
   const fetch = async () => {
     dispatch(clearFacebookState());
@@ -49,9 +49,9 @@ const Facebook = ({ data }) => {
       var utcDateTimeString = utcDateTime.toISOString().replace('Z', '').replace('T', ' ');
       await dispatch(updateUserMain({ finishedAt: utcDateTimeString }));
       //await setInfoDetails(obj);
-      setIsLoading(false);
+      //setIsLoading(false);
     } catch (error) {
-      setIsLoading(false);
+      //setIsLoading(false);
     }
   };
 

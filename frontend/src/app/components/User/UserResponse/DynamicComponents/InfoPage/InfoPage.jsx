@@ -52,16 +52,16 @@ const InfoPage = ({ data }) => {
         setFakeShareSocialMediaPosts(response?.sharePostsData || []); 
       }
       await setInfoDetails(obj);
-      setIsLoading(false);
+      //setIsLoading(false);
     } catch (error) {
-      setIsLoading(false);
+      //setIsLoading(false);
       dispatch(showErrorSnackbar((translations?.error) || USER_TRANSLATIONS_DEFAULT.ERROR));
     }
   };
 
   useEffect(() => {
     if (!isLoggedInUser) return <Navigate to="/" />;
-    setIsLoading(true);
+    //setIsLoading(true);
     fetchInfoDetails();
     window.scrollTo(0,0);
     // window.onbeforeunload = function() {
