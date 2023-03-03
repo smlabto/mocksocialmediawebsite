@@ -85,7 +85,7 @@ const Facebook = ({ data }) => {
       <Container component="main" maxWidth="sm" className="facebookCard">
         <StoryCreate />
 
-        {<div>
+        {<div style={{ position: 'sticky', position: '-webkit-sticky', top: 0, width: '100%', backgroundColor: 'yellow', zIndex: 1000, padding: '4px' }}>
           {isEmbedded && timeRemaining > 0 && (
             <p style={{ backgroundColor: 'yellow' }}>You have <b>{minutesRemaining} minute{minutesRemaining !== 1 && 's'}</b> and <b>{secondsRemaining} second{secondsRemaining !== 1 && 's'}</b> left to browse and interact with the Facebook posts below as if you were on Facebook (e.g., liking, sharing, commenting, etc.) Once the 10 minutes is up, return to the survey page and complete the rest of the survey.</p>
           )}
