@@ -101,10 +101,10 @@ const Facebook = ({ data }) => {
     <>
       {<div style={{ position: 'sticky', WebkitPosition: '-webkit-sticky', top: 0, width: '100%', zIndex: 1000, padding: '2px' }}>
         {isEmbedded && timeRemaining > 0 && (
-          <p style={{ backgroundColor: 'yellow' }}>You have <b>{minutesRemaining} minute{minutesRemaining !== 1 && 's'}</b> and <b>{secondsRemaining} second{secondsRemaining !== 1 && 's'}</b> left to browse and interact with as many Facebook posts below as possible (e.g., liking, sharing, commenting, etc.) Once the 10 minutes is up, return to the survey page and complete the rest of the survey.</p>
+          <p style={{ backgroundColor: 'yellow', fontSize: '70%' }}>You have <b>{minutesRemaining} min{minutesRemaining !== 1 && 's'}</b> and <b>{secondsRemaining} sec{secondsRemaining !== 1 && 's'}</b> left to browse and engage with posts below (e.g., like, share, comment). After 10 minutes, go back to the survey page to complete the survey.</p>
         )}
         {isEmbedded && timeRemaining <= 0 && (
-          <p style={{ backgroundColor: 'lightgreen' }}>The 10 minutes is up, please return to the survey page and complete the rest of the survey.</p>
+          <p style={{ backgroundColor: 'lightgreen' }}>The 10 minutes are up. Please go back to the survey page and complete the remaining questions.</p>
         )}
       </div>}
       <Container component="main" maxWidth="sm" className="facebookCard">
@@ -112,7 +112,7 @@ const Facebook = ({ data }) => {
         <div className="facebookMainBody">
           {totalPostCount && totalPostCount > 0 ?
             <Feed omitInteractionBar={data?.omitInteractionBar || false}/>
-          : <p>Loading Posts. If you don't see posts here in 30 seconds, please restart the survey.</p>}
+          : <p>Posts are loading... If no posts appear within ~30secs, please try accessing the survey using a different browser.</p>}
         </div>
 
         {/* <div className="fbNextBotton">
