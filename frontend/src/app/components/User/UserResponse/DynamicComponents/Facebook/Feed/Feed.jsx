@@ -59,7 +59,7 @@ const Feed = ({ omitInteractionBar }) => {
             </div>)
           }
         })}
-        {finish && allIds.length === 0 && <div><p><center><b>End of the feed. Scroll up to engage with previous posts before time expires.</b></center></p></div>}
+        {finish && <div><p><center><b>End of the feed. Scroll up to engage with previous posts before time expires.</b></center></p></div>}
       </div>
       <div className="paddingTop">
         {isLoading && <Progress />}
