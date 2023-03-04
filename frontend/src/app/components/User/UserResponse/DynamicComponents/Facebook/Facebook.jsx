@@ -99,7 +99,7 @@ const Facebook = ({ data }) => {
 
   return (
     <>
-      {<div style={{ position: 'sticky', WebkitPosition: '-webkit-sticky', top: 0, width: '100%', zIndex: 1000, padding: '2px' }}>
+      {<div style={{ position: 'sticky', WebkitPosition: '-webkit-sticky', top: 0, width: '95%', zIndex: 1000, padding: '2px' }}>
         {isEmbedded && timeRemaining > 0 && (
           <p style={{ backgroundColor: 'yellow', fontSize: '70%' }}>You have <b>{minutesRemaining} min{minutesRemaining !== 1 && 's'}</b> and <b>{secondsRemaining} sec{secondsRemaining !== 1 && 's'}</b> left to browse and engage with posts below (e.g., like, share, comment). After 10 minutes, go back to the survey page to complete the survey.</p>
         )}
