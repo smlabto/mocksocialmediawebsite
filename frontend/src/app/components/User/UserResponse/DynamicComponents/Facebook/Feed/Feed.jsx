@@ -8,6 +8,7 @@ import {
   getFacebookWithCommentsPosts
 } from '../../../../../../actions/socialMedia';
 import { updateUserMain } from '../../../../../../actions/user';
+import { updateFlowActiveState } from '../../../../../../actions/flowState';
 import Progress from '../../../../../Common/Progress';
 import "./Feed.css";
 
@@ -29,6 +30,7 @@ const Feed = ({ omitInteractionBar }) => {
       const utcDateTime = new Date();
       var utcDateTimeString = utcDateTime.toISOString().replace('Z', '').replace('T', ' ');
       await dispatch(updateUserMain({ finishedAt: utcDateTimeString }));
+      await dispatch(updateFlowActiveState());
     } catch (error) {
       //setIsLoading(false);
     }
