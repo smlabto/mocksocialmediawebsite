@@ -7,6 +7,7 @@ import useStyles from '../../../../../style';
 import {
   getFacebookWithCommentsPosts
 } from '../../../../../../actions/socialMedia';
+import { updateUserMain } from '../../../../../actions/user';
 import Progress from '../../../../../Common/Progress';
 import "./Feed.css";
 
@@ -22,11 +23,24 @@ const Feed = ({ omitInteractionBar }) => {
   const dispatch = useDispatch();
   const observer = useRef();
 
+  const fetchInfoDetails = async () => {
+    try {
+      // dispatch finish response event - to indicate that the user reached the end of the feed
+      const utcDateTime = new Date();
+      var utcDateTimeString = utcDateTime.toISOString().replace('Z', '').replace('T', ' ');
+      await dispatch(updateUserMain({ finishedAt: utcDateTimeString }));
+    } catch (error) {
+      //setIsLoading(false);
+    }
+  };
+
   useEffect(() => {
     if (!finish) {
       const startIndex = currentPostPage * postEachPage;
       const slicePosts = totalPostIds.slice(startIndex, startIndex+5);
       dispatch(getFacebookWithCommentsPosts({ postIds: slicePosts }));
+    }else {
+      fetchInfoDetails();
     }
   }, []);
 
