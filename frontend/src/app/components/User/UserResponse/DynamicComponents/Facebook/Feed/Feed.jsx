@@ -7,7 +7,7 @@ import useStyles from '../../../../../style';
 import {
   getFacebookWithCommentsPosts
 } from '../../../../../../actions/socialMedia';
-import { updateUserMain } from '../../../../../actions/user';
+import { updateUserMain } from '../../../../../../actions/user';
 import Progress from '../../../../../Common/Progress';
 import "./Feed.css";
 
