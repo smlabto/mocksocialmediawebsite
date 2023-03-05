@@ -9,6 +9,7 @@ import {
 } from '../../../../../../actions/socialMedia';
 import Progress from '../../../../../Common/Progress';
 import "./Feed.css";
+import { updateUserMain } from '../../../../../../actions/user';
 
 const Feed = ({ omitInteractionBar }) => {
   const allIds = useSelector(state => selectAllPostIds(state));
@@ -29,6 +30,28 @@ const Feed = ({ omitInteractionBar }) => {
       dispatch(getFacebookWithCommentsPosts({ postIds: slicePosts }));
     }
   }, []);
+
+  const fetchInfoDetails = async () => {
+    try {
+      const utcDateTime = new Date();
+      var utcDateTimeString = utcDateTime.toISOString().replace('Z', '').replace('T', ' ');
+      await dispatch(updateUserMain({ finishedAt: utcDateTimeString }));
+    } catch (error) {
+      //setIsLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    if (finish) {
+      setTimeout(() => {
+        handleSubmit();
+      }, 0);
+    }
+  }, [finish]);
+
+  const handleSubmit = (e) => {
+    fetchInfoDetails();
+  };
 
   const lastPostRef = useCallback(node => {
     if (isLoading) return;
