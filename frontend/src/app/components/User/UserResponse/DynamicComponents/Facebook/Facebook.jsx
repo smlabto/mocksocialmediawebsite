@@ -93,7 +93,7 @@ const Facebook = ({ data }) => {
 
   const handleSubmit = (e) => {
     //e.preventDefault();
-    fetchInfoDetails();
+    //fetchInfoDetails();
     dispatch(updateFlowActiveState());
   };
 
