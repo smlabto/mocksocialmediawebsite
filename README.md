@@ -1,7 +1,7 @@
 # ModSimulator
 
-ModSimulator is an open-source tool that simulates an interactive social media timeline, designed for experimental research on the effectiveness of content moderation interventions. It enables researchers to test specific soft content moderation measures, such as displaying fact-check warnings in the footnotes or adding blur screens. These measures are commonly used by social media platforms to limit the spread of misinformation and to inform users about the accuracy of claims.
+ModSimulator is an open-source software tool designed to conduct experimental research on user behavior in response to social media content moderation interventions. This tool allows researchers to test specific moderation measures, such as fact-check footnotes and blur screens, which are widely used by platforms to limit misinformation spread and inform users about post accuracy.
 
-With ModSimulator, researchers can create and customize an interactive social media timeline that closely resembles a real-world social media platform, and they can choose which posts in the timeline will have fact-check warnings in the footnotes or blur screens.
+Using ModSimulator, researchers can create a customized, interactive social media timeline that closely resembles a real-world platform, enabling them to add fact-check footnotes or blur screens to selected posts. This approach allows for the study of users' actual behavior in a realistic environment, rather than only relying on self-reported responses about encounters with misinformation.
 
 ModSimulator is a customized fork of the [Mock Social Media Website Tool](https://docs.studysocial.media).
